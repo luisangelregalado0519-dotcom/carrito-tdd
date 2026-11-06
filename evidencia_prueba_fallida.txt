@@ -1,0 +1,70 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.2.0, pluggy-1.7.0 -- /home/hatch/workspace/tdd_unidad5/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /tmp/demo_fallo
+collecting ... collected 13 items
+
+test_carrito.py::test_carrito_nuevo_esta_vacio PASSED                    [  7%]
+test_carrito.py::test_agregar_producto_suma_al_subtotal PASSED           [ 15%]
+test_carrito.py::test_agregar_con_cantidad_multiplica_el_precio PASSED   [ 23%]
+test_carrito.py::test_agregar_el_mismo_producto_aumenta_la_cantidad PASSED [ 30%]
+test_carrito.py::test_quitar_producto_lo_saca_del_subtotal PASSED        [ 38%]
+test_carrito.py::test_vaciar_deja_el_carrito_en_cero PASSED              [ 46%]
+test_carrito.py::test_total_aplica_el_itbis_del_18_porciento FAILED      [ 53%]
+test_carrito.py::test_descuento_se_aplica_antes_del_impuesto FAILED      [ 61%]
+test_carrito.py::test_sin_descuento_el_total_es_subtotal_mas_itbis FAILED [ 69%]
+test_carrito.py::test_precio_negativo_da_error PASSED                    [ 76%]
+test_carrito.py::test_cantidad_cero_da_error PASSED                      [ 84%]
+test_carrito.py::test_quitar_un_producto_que_no_existe_da_error PASSED   [ 92%]
+test_carrito.py::test_descuento_fuera_de_rango_da_error PASSED           [100%]
+
+=================================== FAILURES ===================================
+_________________ test_total_aplica_el_itbis_del_18_porciento __________________
+
+    def test_total_aplica_el_itbis_del_18_porciento():
+        carrito = CarritoDeCompras()
+        carrito.agregar("Sándwich", 100)
+        # 100 + 18% de ITBIS = 118
+>       assert carrito.total() == pytest.approx(118.00)
+E       assert 100.0 == 118.0 ± 1.2e-04
+E         
+E         comparison failed
+E         Obtained: 100.0
+E         Expected: 118.0 ± 1.2e-04
+
+test_carrito.py:60: AssertionError
+_________________ test_descuento_se_aplica_antes_del_impuesto __________________
+
+    def test_descuento_se_aplica_antes_del_impuesto():
+        carrito = CarritoDeCompras()
+        carrito.agregar("Picadera familiar", 700)
+        carrito.agregar("Yaroa grande", 400)
+        carrito.aplicar_descuento(10)  # subtotal 1100 -> 990 con descuento
+        # 990 * 1.18 = 1168.20
+>       assert carrito.total() == pytest.approx(1168.20)
+E       assert 990.0 == 1168.2 ± 0.0011682
+E         
+E         comparison failed
+E         Obtained: 990.0
+E         Expected: 1168.2 ± 0.0011682
+
+test_carrito.py:69: AssertionError
+______________ test_sin_descuento_el_total_es_subtotal_mas_itbis _______________
+
+    def test_sin_descuento_el_total_es_subtotal_mas_itbis():
+        carrito = CarritoDeCompras()
+        carrito.agregar("Quesadilla", 200, cantidad=2)
+        # 400 * 1.18 = 472
+>       assert carrito.total() == pytest.approx(472.00)
+E       assert 400.0 == 472.0 ± 4.7e-04
+E         
+E         comparison failed
+E         Obtained: 400.0
+E         Expected: 472.0 ± 4.7e-04
+
+test_carrito.py:76: AssertionError
+=========================== short test summary info ============================
+FAILED test_carrito.py::test_total_aplica_el_itbis_del_18_porciento - assert ...
+FAILED test_carrito.py::test_descuento_se_aplica_antes_del_impuesto - assert ...
+FAILED test_carrito.py::test_sin_descuento_el_total_es_subtotal_mas_itbis - a...
+========================= 3 failed, 10 passed in 0.05s =========================

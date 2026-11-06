@@ -1,0 +1,31 @@
+# Integración Continua (CI) — GitHub Actions
+# Cada vez que alguien hace push o abre un pull request, GitHub ejecuta
+# automáticamente todas las pruebas unitarias escritas con TDD.
+# Si una prueba falla, el trabajo queda en rojo y (con la protección de
+# rama activada) el cambio NO se puede integrar hasta corregir el error.
+
+name: Pruebas TDD
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  pruebas:
+    name: Ejecutar pruebas unitarias
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar el código del repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar las herramientas de prueba
+        run: pip install -r requirements.txt
+
+      - name: Ejecutar las pruebas unitarias (pytest)
+        run: pytest -v

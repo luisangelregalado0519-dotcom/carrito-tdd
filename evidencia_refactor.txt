@@ -1,0 +1,21 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.2.0, pluggy-1.7.0 -- /home/hatch/workspace/tdd_unidad5/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/hatch/workspace/tdd_unidad5/repo
+collecting ... collected 13 items
+
+test_carrito.py::test_carrito_nuevo_esta_vacio PASSED                    [  7%]
+test_carrito.py::test_agregar_producto_suma_al_subtotal PASSED           [ 15%]
+test_carrito.py::test_agregar_con_cantidad_multiplica_el_precio PASSED   [ 23%]
+test_carrito.py::test_agregar_el_mismo_producto_aumenta_la_cantidad PASSED [ 30%]
+test_carrito.py::test_quitar_producto_lo_saca_del_subtotal PASSED        [ 38%]
+test_carrito.py::test_vaciar_deja_el_carrito_en_cero PASSED              [ 46%]
+test_carrito.py::test_total_aplica_el_itbis_del_18_porciento PASSED      [ 53%]
+test_carrito.py::test_descuento_se_aplica_antes_del_impuesto PASSED      [ 61%]
+test_carrito.py::test_sin_descuento_el_total_es_subtotal_mas_itbis PASSED [ 69%]
+test_carrito.py::test_precio_negativo_da_error PASSED                    [ 76%]
+test_carrito.py::test_cantidad_cero_da_error PASSED                      [ 84%]
+test_carrito.py::test_quitar_un_producto_que_no_existe_da_error PASSED   [ 92%]
+test_carrito.py::test_descuento_fuera_de_rango_da_error PASSED           [100%]
+
+============================== 13 passed in 0.02s ==============================
